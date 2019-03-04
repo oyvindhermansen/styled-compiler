@@ -1,61 +1,38 @@
-# Preserve
+# Styled compiler
 
-A state lib for keeping track of and change localStorage data
+My first attempt on something remotely close to a compiler
 
-[![Build Status](https://travis-ci.org/oyvindhermansen/preserve.svg?branch=master)](https://travis-ci.org/oyvindhermansen/preserve) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
-## Install
-
-```sh
- npm install @oyvindher/preserve
-```
-
-or with Yarn
-
-```sh
-yarn add @oyvindher/preserve
-```
-
-## API
-
-`preserve(key:string, initialData?: any)`
-
-The preserve function gives you 4 methods in return:
-
-- `get<T>()` Gives the current state of your localstorage item.
-- `set<T>(data:T)` Set the current state of your localstorage item.
-- `subscribe(callback: nextData => void)` Gives you a callback to listen to current state changes
-- `clearItem()` Clears the localStorge item
+> The Program definitely contains bugs. This is for learning purposes only!
 
 ## Basic usage
 
 ```ts
-import preserve from '@oyvindher/preserve';
-
-// Make an item you want to keep track of.
-// The initial state is optional.
-const myItem = preserve('myData', 0);
+// Not on NPM, so this is just for the examples
+import styledCompiler from 'styledCompiler';
 ```
 
-```ts
-// Get the current data from localStorage key
-myItem.get(); // 0
-```
+The `styledCompiler` takes a string of CSS, very much like a
+styled component in the React ecosystem.
 
 ```ts
-// Update the localStorage data.
-myItem.set(1);
+const myCss = `
+  height: 100px;
+  width: 300px;
+  background-color: salmon;
+`;
+
+styledCompiler(myCSSBlock);
 ```
 
-```ts
-// Listen to changes that happens within your localStorage item
-myItem.subscribe(nextData => {
-  console.log(nextData); // 1
-});
-```
+The compiler translates this to an abstract syntax tree, that later transforms this into a
+plain JavaScript object with the respective styles.
+
+The final output will look like this
 
 ```ts
-// Clear the item from localStorage
-myItem.clearItem();
+{
+  height: '100px',
+  width: '300px',
+  backgroundColor: 'salmon'
+}
 ```
-# styled-compiler
