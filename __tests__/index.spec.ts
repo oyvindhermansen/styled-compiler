@@ -93,20 +93,35 @@ describe('Styled Compiler', () => {
   });
 
   describe('Full compiler test', () => {
-    const input = `
+    it('should work as expected', () => {
+      const input = `
       width: 100px;
       height: 300px;
       color: red;
       background-color: blue;
     `;
 
-    const output = {
-      width: '100px',
-      height: '300px',
-      color: 'red',
-      backgroundColor: 'blue'
-    };
+      const output = {
+        width: '100px',
+        height: '300px',
+        color: 'red',
+        backgroundColor: 'blue'
+      };
 
-    expect(styledCompiler(input)).toEqual(output);
+      expect(styledCompiler(input)).toEqual(output);
+    });
+
+    it('should throw syntax error if rule not found', () => {
+      const input = `
+      width: 100px;
+      height: 300px;
+      test: red;
+      background-color: blue;
+    `;
+
+      expect(() => {
+        styledCompiler(input);
+      }).toThrow("Unknown CSS rule: 'test'");
+    });
   });
 });
