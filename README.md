@@ -24,10 +24,36 @@ const myCss = `
 styledCompiler(myCSSBlock);
 ```
 
-The compiler translates this to an abstract syntax tree, that later transforms this into a
-plain JavaScript object with the respective styles.
+The compiler translates this to an abstract syntax tree. Here's how it looks like:
 
-The final output will look like this
+```ts
+{
+  Program: {
+    body: [
+      {
+        type: 'CSSRule',
+        rule: 'height',
+        value: '100px'
+      },
+      {
+        type: 'CSSRule',
+        rule: 'width',
+        value: '300px'
+      },
+      {
+        type: 'CSSRule',
+        rule: 'background-color',
+        value: 'salmon'
+      }
+    ];
+  }
+}
+```
+
+The last step of this compiler takes the AST and transforms it into a plain javascript object
+that contains the styles in the CSS string.
+
+Here's how it looks like when the compiler has done it's job:
 
 ```ts
 {
